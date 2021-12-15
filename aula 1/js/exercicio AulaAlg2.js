@@ -14,7 +14,7 @@ let media
 let maior
 let numero
 let quantidade = Number(prompt('INFORME A QUANTIDADE DE NUMEROS QUE VOCE DESEJA CAPTURAR'))
-
+soma=0
 for (let contador = 1; contador <= quantidade; contador++) {
     numero = Number(prompt("informe o " + contador + " numero "))
     soma+=numero
@@ -35,12 +35,7 @@ for (let contador = 1; contador <= quantidade; contador++) {
 }
 
 media = (soma) / quantidade
-alert("MENOR" + menor)
-alert("MAIOR" + maior)
-alert("MEDIA" + media)
-
-
-// 
-
-let
+alert("MENOR " + menor)
+alert("MAIOR " + maior)
+alert("MEDIA " + media)
 
