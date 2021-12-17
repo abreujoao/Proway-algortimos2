@@ -46,7 +46,7 @@ function subtrair(numeroA, numeroB) {
     alert(numeroA - numeroB)
 }
 
-function multiplicar(numeroA, numeroA) {
+function multiplicar(numeroA, numeroB) {
     alert(numeroA * numeroB)
 }
 
