@@ -1,0 +1,129 @@
+
+
+select * from usuarios;
+
+insert into usuarios (nome,email,senha) values ("Ewerton Oliveira","ewerton@gmail.com","1234")
+
+drop table pessoas
+
+select * from telefones;
+
+insert into telefones (tipo,numero_completo,usuario_id)
+values("residencial","(17) 3235-3893",6);
+
+select * 
+from usuarios
+inner join telefones on telefones.usuario_id = usuarios.id;
+-- o inner é um tipo de relacionamento restrito onde os valores
+-- comparados devem existir em ambas tabelas
+-- devem existir em ambas tabelas ( se nao houver nao exibe essa linha)
+
+--o left join é o um tipo de relacionamento menos restritivo onde basta 
+--existir dados na tabela principal dessa forma os dados da tabela 
+--secundaria ficarão nulos (mas os resultados sao exibidos em linha)
+
+select 
+    usu.nome as usuario,
+    usu.email,
+    tel.tipo as type,
+    usu.senha as password,
+    tel.numero_completo as number
+from usuarios as usu 
+    left join telefones as tel on tel.usuario_id = usu.id
+where 
+tel.numero_completo like "%5%"
+and tel.numero_completo like "%5"
+;
+    
+
+-- criar 2 tabelas 
+-- primeira tabela 
+--id bla bla bla
+--nome
+--ano
+--genero
+--diretor
+
+create table series(
+id integer primary key autoincrement unique not null,
+nome text not null,
+ano integer not null,
+genero text,
+diretor text
+)
+
+--segunda tabela 
+--titulo obrigatorio 
+--sequencia obrigatorio
+--descricao 
+-- serie id 
+
+create table episodios(
+id integer primary key autoincrement unique not null,
+titulo text,
+sequencia integer not null, 
+descricao text
+serie_id integer references series (id)
+)   
+
+select * from series;
+
+insert into series (nome,ano,genero,diretor) values ("Vikins",2019,"Ação","Michael");
+insert into series (nome,ano,diretor) values ("La casa de Papel",2019,"Professor"); 
+insert into series (nome,ano,genero) values ("The witcher",2020,"Fantasia");
+insert into series (nome,ano,genero) values ("One piece",1997,"Anime");
+insert into series (nome,ano,genero) values ("Bleach",2017,"Anime");
+insert into series (nome,ano,genero) values ("Naruto",2002,"Anime");
+insert into series (nome,ano,genero) values ("The boys",2020,"Ação");
+
+select count(*) from series
+where
+ano = 2019
+;
+
+select genero,count(*) from series
+group by genero
+;
+
+select * from series;
+
+-- id em 2 em series é la casa de papel 
+-- id em  em series é 
+
+select * from episodios;
+
+insert into episodios (serie_id,titulo,sequencia,descricao) values (3,"Nao sei",5,"quasem matam, mas ele é o pricnipal")
+
+select * from series as se
+left join episodios as ep on ep.serie_id = se.id;
+
+select * from series as se
+left join episodios as ep on ep.serie_id = se.id
+where se.id=2
+order by ep.sequencia asc;
+
+--select * from series as se 
+--left join episodios as ep on ep.serie_id = se.id
+--order by se.nome,ep.sequencia
+--;
+
+-------------------------------------------------------------
+
+--para fazer contagens ou agrupadores é necessario informar quais os campos se repetem 
+--e esses campos devem ser os unicos presentes no select 
+--os demais campos sao os de agrupamentos no select deve existir no group by
+
+select
+se.nome
+count(*)
+from series as se 
+inner join episodios as ep on ep.serie_id = se.id 
+group by se.nome
+
+--para consultas com contagem ou arupadores nao devo usar left pois 
+--sempre que falta o relacionamento é gerado no minimo uma linha vazia
+--que nao configura relacionamento 
+
+
+
+
